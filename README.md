@@ -14,6 +14,7 @@
 ```
 # 查看包名
 rpm -q sqlite 
+# 删除
 rpm -e --nodeps sqlite3xxx(full name)
 ```
 
@@ -41,7 +42,6 @@ import sqlite3
 sqlite3.sqlite_version
 # 3.27.2
 ```
-
 
 ## 安装 python3 及 python3x-devel
 
@@ -103,6 +103,8 @@ yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-serv
 ```
 
 `sudo yum install certbot`
+
+> 生成的证书用 `scp` 下载下来，同一个域名可以复用。
 
 ~~`sudo certbot certonly --standalone --standalone-supported-challenges http-01 -d easythings.smartcodecloud.com`~~
 
@@ -252,6 +254,8 @@ sudo systemctl enable firewalld
 
 ### 安装 mosquitto
 
+> CentOS 7 用 `yum` 安装，CentOS 8 用源码安装。
+
 `sudo yum -y install epel-release`
 
 ```
@@ -262,7 +266,7 @@ source /etc/profile
 ```
 
 ```
-# 用源码安装
+# 用源码安装 (centos 8)
 git clone https://github.com/eclipse/mosquitto.git
 cd mosquitto
 yum install make
@@ -291,7 +295,7 @@ cp service/systemd/mosquitto.service.simple /usr/lib/systemd/system/mosquitto.se
 sudo ln -s /usr/local/lib/libmosquitto.so.1 /usr/lib/libmosquitto.so.1
 ldconfig
 
-# 用命令安装（目前只在 centos 7 上试过）
+# 用命令安装（centos 7）
 sudo yum install mosquitto
 
 sudo systemctl start mosquitto
