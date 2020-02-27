@@ -24,11 +24,14 @@ wget https://www.sqlite.org/2019/sqlite-autoconf-3270200.tar.gz
 tar zxvf sqlite-autoconf-3260000
 cd sqlite-autoconf-3260000
 yum install gcc
-./configure or ./configure --prefix=/usr
+./configure --prefix=/usr/local
 make
 make install
 mv /usr/bin/sqlite3 /usr/bin/sqlite3_old
-cp sqlite3 /usr/bin/sqlite3
+cp sqlite3 /usr/local/bin/sqlite3 # If not exists here.
+ln -s /usr/local/bin/sqlite /usr/bin/sqlite3
+echo "/usr/local/lib" > /etc/ld.so.conf.d/sqlite3.conf
+ldconfig
 sqlite3 --version
 
 vi ~/.bashrc
@@ -52,7 +55,11 @@ or `sudo yum install python-virtualenv`
 
 ## 安装 uwsgi
 
-不能在 `virtualenv` 环境下安装 `uwsgi`，先试 `yum install` 不行再换 `pip3 install`。 
+不能在 `virtualenv` 环境下安装 `uwsgi`，也不能在 `yum` 下安装，需要在 `pip3` 下安装。
+
+```
+pip3 install uwsgi
+```
 
 ```
 # terminal commands
